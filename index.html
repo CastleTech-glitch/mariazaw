@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="my" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria Zaw (မာရီယာဇော်) | Art & Language Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Padauk:wght@400;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terracotta: '#B85B43',
+                        warmOchre: '#E29D47',
+                        sageGreen: '#6E8B74',
+                        canvasBg: '#FAF5F0',
+                    },
+                    fontFamily: {
+                        sans: ['Padauk', 'Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        hand: ['Caveat', 'cursive'],
+                        myanmar: ['Padauk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            /* Theme: Terracotta & Ochre Earth Signature Palette */
+            --bg-canvas: #FAF5F0;
+            --brand-primary: #B85B43;
+            --brand-secondary: #E29D47;
+            --brand-accent: #6E8B74;
+            --text-main: #3D2922;
+            --text-muted: #735C53;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --border-color: #EEDFD3;
+            --header-gradient: linear-gradient(135deg, #FAF5F0 0%, #F5EAE0 100%);
+            --watercolor-overlay: radial-gradient(circle at 20% 20%, rgba(226, 157, 71, 0.15) 0%, transparent 40%),
+                                 radial-gradient(circle at 80% 80%, rgba(184, 91, 67, 0.12) 0%, transparent 40%);
+        }
+
+        body {
+            font-family: 'Padauk', 'Inter', sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            background-image: var(--watercolor-overlay);
+            background-attachment: fixed;
+        }
+
+        .dynamic-primary-bg { background-color: var(--brand-primary) !important; }
+        .dynamic-primary-text { color: var(--brand-primary) !important; }
+        .dynamic-primary-border { border-color: var(--brand-primary) !important; }
+
+        .dynamic-secondary-bg { background-color: var(--brand-secondary) !important; }
+        .dynamic-secondary-text { color: var(--brand-secondary) !important; }
+
+        .dynamic-card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Organic Soft Edges & Shadows */
+        .organic-border {
+            border-radius: 28px 16px 30px 18px / 18px 28px 16px 30px;
+        }
+        
+        .organic-badge {
+            border-radius: 999px 12px 999px 16px;
+        }
+
+        .organic-shadow {
+            box-shadow: 0 12px 32px -8px rgba(60, 40, 20, 0.08);
+        }
+
+        /* Brush stroke underline effect */
+        .brush-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .brush-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 5%;
+            width: 90%;
+            height: 8px;
+            background: var(--brand-secondary);
+            opacity: 0.45;
+            border-radius: 4px;
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Status Bar & Language Switcher -->
+    <header class="sticky top-0 z-50 bg-stone-900 text-white shadow-md py-2.5 px-4 border-b border-stone-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            
+            <!-- Left: Brand Tagline -->
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+                <span class="font-bold tracking-wide">Maria Zaw (မာရီယာဇော်) • Portfolio Suite</span>
+                <span class="text-[10px] bg-amber-950 text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-800/60 font-medium hidden md:inline-block">
+                    <i class="fas fa-palette mr-1"></i> Terracotta Earth Palette
+                </span>
+            </div>
+
+            <!-- Right: Language Switcher Toggle -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center bg-stone-800 rounded-xl p-1 border border-stone-700">
+                    <button onclick="setLanguage('my')" id="lang-btn-my" class="px-3 py-1 rounded-lg text-xs font-bold transition bg-amber-500 text-stone-950 shadow">
+                        🇲🇲 မြန်မာ
+                    </button>
+                    <button onclick="setLanguage('en')" id="lang-btn-en" class="px-3 py-1 rounded-lg text-xs font-bold transition text-stone-300 hover:text-white">
+                        🇬🇧 English
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-[47px] z-40 bg-white/85 backdrop-blur-md border-b border-stone-200 shadow-sm transition">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                
+                <!-- Brand Logo & Title with Clean Symbol -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <!-- SVG Logo featuring clean signature symbol surrounded by organic botanical leaves -->
+                    <div class="w-14 h-14 rounded-2xl bg-stone-100 border border-amber-900/10 p-2 flex items-center justify-center shadow-sm group-hover:scale-105 transition transform">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <!-- Outer Botanical Wreath -->
+                            <path d="M 50,8 A 42,42 0 0,0 12,50 A 42,42 0 0,0 50,92" fill="none" stroke="var(--brand-accent)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 2" />
+                            <path d="M 50,8 A 42,42 0 0,1 88,50 A 42,42 0 0,1 50,92" fill="none" stroke="var(--brand-accent)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 2" />
+                            
+                            <!-- Leaf Details -->
+                            <path d="M 22,25 C 15,20 20,35 28,32 Z" fill="var(--brand-accent)" opacity="0.7"/>
+                            <path d="M 78,25 C 85,20 80,35 72,32 Z" fill="var(--brand-accent)" opacity="0.7"/>
+                            <path d="M 18,65 C 12,70 25,75 26,65 Z" fill="var(--brand-accent)" opacity="0.7"/>
+                            <path d="M 82,65 C 88,70 75,75 74,65 Z" fill="var(--brand-accent)" opacity="0.7"/>
+                            
+                            <!-- Central Heart-Hand Wave Symbol -->
+                            <g fill="none" stroke="var(--brand-primary)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M 18 58 L 36 58 C 36 46 42 34 47 38 C 49 40 50 46 50 51 C 50 46 51 40 53 38 C 58 34 64 46 64 58 L 82 58" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <span class="text-2xl font-bold tracking-tight font-serif block leading-none dynamic-primary-text">Maria Zaw</span>
+                        <span class="text-xs font-bold tracking-widest uppercase opacity-80 dynamic-i18n" data-my="မာရီယာဇော် • Personal Portfolio" data-en="Maria Zaw • Personal Portfolio">မာရီယာဇော် • Personal Portfolio</span>
+                    </div>
+                </a>
+                
+                <!-- Desktop Nav Links -->
+                <div class="hidden lg:flex space-x-6 text-sm font-semibold">
+                    <a href="#about" class="hover:dynamic-primary-text transition dynamic-i18n" data-my="မိတ်ဆက်" data-en="About">မိတ်ဆက်</a>
+                    <a href="#academics" class="hover:dynamic-primary-text transition dynamic-i18n" data-my="မြန်မာစာ & Thesis" data-en="Burmese & Thesis">မြန်မာစာ & Thesis</a>
+                    <a href="#creative" class="hover:dynamic-primary-text transition dynamic-i18n" data-my="ပန်းချီ & ပုံပြင်" data-en="Art & Books">ပန်းချီ & ပုံပြင်</a>
+                    <a href="#wellness" class="hover:dynamic-primary-text transition dynamic-i18n" data-my="ယောဂ & ဂီတာ" data-en="Yoga & Guitar">ယောဂ & ဂီတာ</a>
+                    <a href="#memories" class="hover:dynamic-primary-text transition dynamic-i18n" data-my="Photo Journal" data-en="Photo Journal">Photo Journal</a>
+                </div>
+
+                <!-- Contact CTA Button -->
+                <a href="#contact" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl dynamic-primary-bg text-white font-medium text-xs shadow-md hover:opacity-90 transition items-center">
+                    <i class="fas fa-paper-plane mr-2"></i> 
+                    <span class="dynamic-i18n" data-my="ဆက်သွယ်ရန်" data-en="Contact Me">ဆက်သွယ်ရန်</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="about" class="relative py-16 md:py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Profile Portrait -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative group">
+                        <div class="absolute -inset-4 organic-border opacity-40 group-hover:opacity-70 transition duration-500 dynamic-primary-bg blur-lg"></div>
+                        
+                        <div class="relative organic-border overflow-hidden shadow-2xl border-4 border-white/90 bg-white">
+                            <img src="https://placehold.co/450x540/FAF5F0/3D2922?text=Maria+Zaw+Portrait" alt="Maria Zaw" class="w-full max-w-sm object-cover h-[480px]">
+                            
+                            <!-- Floating Artistic Badge -->
+                            <div class="absolute bottom-4 left-4 right-4 dynamic-card p-4 organic-border shadow-lg text-center border">
+                                <p class="text-base font-bold font-serif dynamic-primary-text">Maria Zaw (မာရီယာဇော်)</p>
+                                <p class="text-xs opacity-85 font-medium mt-0.5 dynamic-i18n" data-my="မြန်မာစာ နည်းပြ • သုတေသီ • ပန်းချီဆရာ • ယောဂဆရာ" data-en="Burmese Educator • Researcher • Artist • Yogi">မြန်မာစာ နည်းပြ • သုတေသီ • ပန်းချီဆရာ • ယောဂဆရာ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Hero Text Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 organic-badge text-xs font-bold bg-amber-100/80 text-amber-900 border border-amber-300">
+                        <span class="w-2.5 h-2.5 rounded-full dynamic-primary-bg animate-pulse"></span>
+                        <span class="dynamic-i18n" data-my="မင်္ဂလာပါ၊ Maria Zaw ၏ အနုပညာ & စာပေ ကမ္ဘာမှ ကြိုဆိုပါသည်" data-en="Welcome to Maria Zaw's Art & Language Portfolio">မင်္ဂလာပါ၊ Maria Zaw ၏ အနုပညာ & စာပေ ကမ္ဘာမှ ကြိုဆိုပါသည်</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight font-serif">
+                        <span class="brush-underline dynamic-i18n" data-my="မြန်မာစာပေ၊ သုတေသန Thesis" data-en="Burmese Language, Research Thesis">မြန်မာစာပေ၊ သုတေသန Thesis</span> <br class="hidden sm:inline">
+                        <span class="dynamic-i18n" data-my="နှင့် သဘာဝ အနုပညာ ဖန်တီးမှုများ" data-en="& Nature-Inspired Artistic Works">နှင့် သဘာဝ အနုပညာ ဖန်တီးမှုများ</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg leading-relaxed opacity-90 dynamic-i18n" 
+                       data-my="ကျွန်မ **Maria Zaw (မာရီယာဇော်)** သည် မြန်မာစာ ဘာသာစကား သင်ကြားရေး၊ Burmese Thesis သုတေသန စာတမ်းများ၊ ကလေး ပုံပြင် စာအုပ်များ၊ ရေဆေး/ဆီဆေး ပန်းချီကားများ၊ Acoustic Guitar တီးခတ်မှုများနှင့် စိတ်နှင့်ခန္ဓာ ငြိမ်းချမ်းစေမည့် ယောဂ (Yoga) လေ့ကျင့်ရေးများကို ချစ်မြတ်နိုးစွာ ဖန်တီး မျှဝေလျက်ရှိပါသည်။" 
+                       data-en="I am **Maria Zaw**, dedicated to Burmese language teaching, research theses, nature-inspired children's storybooks, natural watercolor/oil paintings, acoustic guitar fingerstyle sessions, and holistic yoga mindfulness practice.">
+                        ကျွန်မ **Maria Zaw (မာရီယာဇော်)** သည် မြန်မာစာ ဘာသာစကား သင်ကြားရေး၊ Burmese Thesis သုတေသန စာတမ်းများ၊ ကလေး ပုံပြင် စာအုပ်များ၊ ရေဆေး/ဆီဆေး ပန်းချီကားများ၊ Acoustic Guitar တီးခတ်မှုများနှင့် စိတ်နှင့်ခန္ဓာ ငြိမ်းချမ်းစေမည့် ယောဂ (Yoga) လေ့ကျင့်ရေးများကို ချစ်မြတ်နိုးစွာ ဖန်တီး မျှဝေလျက်ရှိပါသည်။
+                    </p>
+
+                    <!-- Skill Badges -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-2.5 pt-2">
+                        <span class="px-3.5 py-1.5 dynamic-card organic-badge text-xs font-semibold shadow-sm flex items-center border">
+                            <i class="fas fa-graduation-cap dynamic-primary-text mr-2"></i>
+                            <span class="dynamic-i18n" data-my="မြန်မာစာ နည်းပြ" data-en="Burmese Instructor">မြန်မာစာ နည်းပြ</span>
+                        </span>
+                        <span class="px-3.5 py-1.5 dynamic-card organic-badge text-xs font-semibold shadow-sm flex items-center border">
+                            <i class="fas fa-book-bookmark text-amber-700 mr-2"></i>
+                            <span class="dynamic-i18n" data-my="Thesis & Research" data-en="Thesis & Research">Thesis & Research</span>
+                        </span>
+                        <span class="px-3.5 py-1.5 dynamic-card organic-badge text-xs font-semibold shadow-sm flex items-center border">
+                            <i class="fas fa-palette text-rose-600 mr-2"></i>
+                            <span class="dynamic-i18n" data-my="ရေဆေး ပန်းချီ" data-en="Watercolor Art">ရေဆေး ပန်းချီ</span>
+                        </span>
+                        <span class="px-3.5 py-1.5 dynamic-card organic-badge text-xs font-semibold shadow-sm flex items-center border">
+                            <i class="fas fa-feather-pointed text-amber-800 mr-2"></i>
+                            <span class="dynamic-i18n" data-my="ကလေး ပုံပြင်များ" data-en="Storybooks">ကလေး ပုံပြင်များ</span>
+                        </span>
+                        <span class="px-3.5 py-1.5 dynamic-card organic-badge text-xs font-semibold shadow-sm flex items-center border">
+                            <i class="fas fa-spa text-emerald-700 mr-2"></i>
+                            <span class="dynamic-i18n" data-my="ယောဂ လေ့ကျင့်ရေး" data-en="Yoga Practice">ယောဂ လေ့ကျင့်ရေး</span>
+                        </span>
+                        <span class="px-3.5 py-1.5 dynamic-card organic-badge text-xs font-semibold shadow-sm flex items-center border">
+                            <i class="fas fa-guitar text-indigo-600 mr-2"></i>
+                            <span class="dynamic-i18n" data-my="Acoustic Guitar" data-en="Acoustic Guitar">Acoustic Guitar</span>
+                        </span>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="pt-4 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="#contact" class="px-7 py-3.5 dynamic-primary-bg text-white font-medium organic-badge shadow-lg hover:opacity-90 transition text-center flex items-center justify-center text-sm">
+                            <i class="fas fa-envelope mr-2"></i> 
+                            <span class="dynamic-i18n" data-my="တိုက်ရိုက် ဆက်သွယ်ရန်" data-en="Get In Touch">တိုက်ရိုက် ဆက်သွယ်ရန်</span>
+                        </a>
+                        <a href="#memories" class="px-7 py-3.5 dynamic-card border font-medium organic-badge shadow-sm hover:bg-white/90 transition text-center flex items-center justify-center text-sm">
+                            <i class="fas fa-images dynamic-primary-text mr-2"></i> 
+                            <span class="dynamic-i18n" data-my="Photo & Video Journal" data-en="Photo & Video Journal">Photo & Video Journal</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Academics & Thesis Section -->
+    <section id="academics" class="py-16 border-y border-stone-200 bg-white/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="dynamic-primary-text font-bold uppercase tracking-wider text-xs dynamic-i18n" data-my="Academics & Research" data-en="Academics & Research">Academics & Research</span>
+                <h2 class="text-3xl font-bold mt-2 font-serif dynamic-i18n" data-my="မြန်မာစာ သင်ကြားရေးနှင့် သုတေသန Thesis" data-en="Burmese Language Teaching & Research Thesis">မြန်မာစာ သင်ကြားရေးနှင့် သုတေသန Thesis</h2>
+                <div class="w-20 h-1 dynamic-secondary-bg mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Burmese Language Teaching -->
+                <div class="p-8 organic-border dynamic-card border shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 organic-badge bg-amber-100 text-amber-900 flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 font-serif dynamic-i18n" data-my="မြန်မာစာ ဘာသာစကား သင်ကြားရေး" data-en="Burmese Language Teaching">မြန်မာစာ ဘာသာစကား သင်ကြားရေး</h3>
+                    <p class="text-sm opacity-85 mb-5 leading-relaxed dynamic-i18n" 
+                       data-my="Maria Zaw ၏ စနစ်ကျသော သင်ရိုးညွှန်းတမ်းဖြင့် နိုင်ငံခြားသားများနှင့် မြန်မာစာ လေ့လာလိုသူများအတွက် Speaking, Writing နှင့် Burmese Literature များကို အလွယ်ကူဆုံး သင်ကြားပေးလျက်ရှိပါသည်။" 
+                       data-en="Structured and engaging Burmese language courses tailored for international learners and enthusiasts, focusing on conversation, grammar, and classical Burmese literature.">
+                        Maria Zaw ၏ စနစ်ကျသော သင်ရိုးညွှန်းတမ်းဖြင့် နိုင်ငံခြားသားများနှင့် မြန်မာစာ လေ့လာလိုသူများအတွက် Speaking, Writing နှင့် Burmese Literature များကို အလွယ်ကူဆုံး သင်ကြားပေးလျက်ရှိပါသည်။
+                    </p>
+                    <ul class="space-y-3 text-sm opacity-90 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-emerald-700 mr-2.5"></i> 
+                            <span class="dynamic-i18n" data-my="Conversational Burmese for Foreigners" data-en="Conversational Burmese for Foreigners">Conversational Burmese for Foreigners</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-emerald-700 mr-2.5"></i> 
+                            <span class="dynamic-i18n" data-my="မြန်မာစာပေနှင့် ယဉ်ကျေးမှု သင်တန်းများ" data-en="Burmese Literature & Cultural Studies">မြန်မာစာပေနှင့် ယဉ်ကျေးမှု သင်တန်းများ</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-emerald-700 mr-2.5"></i> 
+                            <span class="dynamic-i18n" data-my="Custom Online One-on-One Classes" data-en="Custom Online One-on-One Classes">Custom Online One-on-One Classes</span>
+                        </li>
+                    </ul>
+                    <button onclick="openModal('Burmese Language Class', 'Maria Zaw ၏ မြန်မာစာ အွန်လိုင်း အတန်းများအတွက် သင်တန်းအချိန်ဇယားနှင့် စုံစမ်းရန်။')" class="inline-flex items-center dynamic-primary-text font-bold hover:underline text-sm">
+                        <span class="dynamic-i18n" data-my="သင်တန်း အကူအညီ တောင်းခံရန်" data-en="Inquire About Classes">သင်တန်း အကူအညီ တောင်းခံရန်</span> 
+                        <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Research & Thesis Module -->
+                <div class="p-8 organic-border dynamic-card border shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 organic-badge bg-indigo-100 text-indigo-900 flex items-center justify-center text-2xl mb-6">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 font-serif dynamic-i18n" data-my="Burmese Thesis & Research Papers" data-en="Burmese Thesis & Research Papers">Burmese Thesis & Research Papers</h3>
+                    <p class="text-sm opacity-85 mb-5 leading-relaxed dynamic-i18n" 
+                       data-my="မြန်မာဘာသာစကား သမိုင်း၊ သဒ္ဒါဖွဲ့စည်းပုံနှင့် စာပေအသုံးအနှုန်းဆိုင်ရာ သုတေသန စာတမ်းများကို စနစ်တကျ ရေးသားပြုစုထားပါသည်။" 
+                       data-en="Academic publications and master's research work specializing in Burmese linguistics, historical grammar, and literary stylistic analysis.">
+                        မြန်မာဘာသာစကား သမိုင်း၊ သဒ္ဒါဖွဲ့စည်းပုံနှင့် စာပေအသုံးအနှုန်းဆိုင်ရာ သုတေသန စာတမ်းများကို စနစ်တကျ ရေးသားပြုစုထားပါသည်။
+                    </p>
+                    
+                    <div class="space-y-3">
+                        <div class="p-4 rounded-2xl border flex justify-between items-center bg-white/70">
+                            <div>
+                                <h4 class="font-bold text-sm dynamic-i18n" data-my="မြန်မာသဒ္ဒါ ဖွံ့ဖြိုးတိုးတက်မှု သမိုင်း" data-en="History of Burmese Grammar Evolution">မြန်မာသဒ္ဒါ ဖွံ့ဖြိုးတိုးတက်မှု သမိုင်း</h4>
+                                <p class="text-xs opacity-70 mt-0.5">Maria Zaw • Academic Research Thesis</p>
+                            </div>
+                            <button onclick="openModal('မြန်မာသဒ္ဒါ သမိုင်း Thesis', 'ပုဂံခေတ် ကျောက်စာများမှသည် ခေတ်ဆန်းစာပေအထိ သဒ္ဒါပြောင်းလဲမှု လေ့လာချက်။')" class="p-2.5 rounded-xl bg-amber-50 dynamic-primary-text hover:dynamic-primary-bg hover:text-white transition">
+                                <i class="fas fa-file-alt"></i>
+                            </button>
+                        </div>
+
+                        <div class="p-4 rounded-2xl border flex justify-between items-center bg-white/70">
+                            <div>
+                                <h4 class="font-bold text-sm dynamic-i18n" data-my="ခေတ်ပေါ် စာပေအသုံးအနှုန်း ဆန်းစစ်ချက်" data-en="Modern Stylistics in Contemporary Literature">ခေတ်ပေါ် စာပေအသုံးအနှုန်း ဆန်းစစ်ချက်</h4>
+                                <p class="text-xs opacity-70 mt-0.5">Maria Zaw • Linguistics Paper</p>
+                            </div>
+                            <button onclick="openModal('ခေတ်ပေါ် စာပေအသုံးအနှုန်း Thesis', 'ခေတ်ပေါ် ဝတ္ထုတိုများရှိ ဘာသာစကား အသုံးပြုပုံ အလေ့အထများ။')" class="p-2.5 rounded-xl bg-amber-50 dynamic-primary-text hover:dynamic-primary-bg hover:text-white transition">
+                                <i class="fas fa-file-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Creative Studio Gallery Section -->
+    <section id="creative" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="dynamic-secondary-text font-bold uppercase tracking-wider text-xs dynamic-i18n" data-my="Creative Art Studio" data-en="Creative Art Studio">Creative Art Studio</span>
+                <h2 class="text-3xl font-bold mt-2 font-serif dynamic-i18n" data-my="ရေဆေး ပန်းချီကားများ & ပုံပြင် စာအုပ်များ" data-en="Watercolor Paintings & Children's Storybooks">ရေဆေး ပန်းချီကားများ & ပုံပြင် စာအုပ်များ</h2>
+                <div class="w-20 h-1 dynamic-secondary-bg mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Gallery Tab Switcher -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-stone-200/70 p-1.5 organic-badge flex space-x-2">
+                    <button id="tab-art-btn" onclick="switchCreativeTab('art')" class="px-6 py-2.5 organic-badge font-bold text-xs sm:text-sm transition bg-white shadow text-stone-900 flex items-center">
+                        <i class="fas fa-palette mr-2 text-rose-600"></i>
+                        <span class="dynamic-i18n" data-my="ပန်းချီကားများ" data-en="Paintings">ပန်းချီကားများ</span>
+                    </button>
+                    <button id="tab-books-btn" onclick="switchCreativeTab('books')" class="px-6 py-2.5 organic-badge font-bold text-xs sm:text-sm transition text-stone-600 hover:text-stone-900 flex items-center">
+                        <i class="fas fa-book-open mr-2 text-amber-700"></i>
+                        <span class="dynamic-i18n" data-my="ပုံပြင် စာအုပ်များ" data-en="Storybooks">ပုံပြင် စာအုပ်များ</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Paintings Grid -->
+            <div id="art-gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="dynamic-card organic-border overflow-hidden shadow-sm border group hover:shadow-xl transition">
+                    <div class="relative overflow-hidden h-64 bg-stone-100">
+                        <img src="https://placehold.co/600x450/E29D47/FFFFFF?text=Nature+Watercolor" alt="Painting" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <button onclick="openModal('မြန်မာ့ကျေးလက် သဘာဝ ရေဆေး', 'Maria Zaw ရေးဆွဲထားသော Nature Style Watercolor on Canvas ပန်းချီကား။ (Size: 24x36 inches)')" class="p-3.5 bg-white rounded-full text-stone-900 shadow-lg">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] uppercase font-bold bg-amber-100 text-amber-900 px-2.5 py-1 organic-badge">Soft Watercolor</span>
+                        <h3 class="font-bold text-base mt-2 font-serif dynamic-i18n" data-my="သဘာဝတရား၏ ငြိမ်းချမ်းခြင်း ရေဆေး" data-en="Peaceful Nature Watercolor">သဘာဝတရား၏ ငြိမ်းချမ်းခြင်း ရေဆေး</h3>
+                        <p class="text-xs opacity-70 mt-1">Maria Zaw Art Studio • 2026</p>
+                    </div>
+                </div>
+
+                <div class="dynamic-card organic-border overflow-hidden shadow-sm border group hover:shadow-xl transition">
+                    <div class="relative overflow-hidden h-64 bg-stone-100">
+                        <img src="https://placehold.co/600x450/B85B43/FFFFFF?text=Forest+and+Mountain+Oil" alt="Painting" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <button onclick="openModal('သစ်တောနှင့် တောင်တန်း ပန်းချီ', 'သဘာဝတရား၏ ငြိမ်သက်ခြင်းကို ပုံဖော်ထားသည့် Oil Painting ပန်းချီကား။')" class="p-3.5 bg-white rounded-full text-stone-900 shadow-lg">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] uppercase font-bold bg-emerald-100 text-emerald-900 px-2.5 py-1 organic-badge">Oil Painting</span>
+                        <h3 class="font-bold text-base mt-2 font-serif dynamic-i18n" data-my="သစ်တောနှင့် တောင်တန်း ရိပ်သာ" data-en="Forest & Mountain Sanctuary">သစ်တောနှင့် တောင်တန်း ရိပ်သာ</h3>
+                        <p class="text-xs opacity-70 mt-1">Maria Zaw Art Studio • 2025</p>
+                    </div>
+                </div>
+
+                <div class="dynamic-card organic-border overflow-hidden shadow-sm border group hover:shadow-xl transition">
+                    <div class="relative overflow-hidden h-64 bg-stone-100">
+                        <img src="https://placehold.co/600x450/6E8B74/FFFFFF?text=Sunset+Watercolor+Harmony" alt="Painting" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <button onclick="openModal('ပုဂံဆည်းဆာ ရေဆေးပန်းချီ', 'ပုဂံ စေတီပုထိုးများ၏ ညနေဆည်းဆာ ရေဆေးပန်းချီကား။')" class="p-3.5 bg-white rounded-full text-stone-900 shadow-lg">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] uppercase font-bold bg-rose-100 text-rose-900 px-2.5 py-1 organic-badge">Soft Pastel</span>
+                        <h3 class="font-bold text-base mt-2 font-serif dynamic-i18n" data-my="ပုဂံဆည်းဆာ အလှတလင်း" data-en="Bagan Sunset Glow">ပုဂံဆည်းဆာ အလှတလင်း</h3>
+                        <p class="text-xs opacity-70 mt-1">Maria Zaw Art Studio • 2025</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Story Books Grid (Initially Hidden) -->
+            <div id="books-gallery" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="dynamic-card organic-border p-6 border shadow-sm hover:shadow-md transition">
+                    <div class="w-full h-52 bg-amber-100/70 rounded-2xl mb-4 flex items-center justify-center text-amber-900 text-5xl">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <span class="text-[11px] bg-amber-200 text-amber-900 px-3 py-1 organic-badge font-bold">Special Edition</span>
+                    <h3 class="font-bold text-lg mt-3 font-serif dynamic-i18n" data-my="ရွှေယုန်ကလေးနှင့် သူငယ်ချင်းများ" data-en="Golden Rabbit & Friends">ရွှေယုန်ကလေးနှင့် သူငယ်ချင်းများ</h3>
+                    <p class="text-xs opacity-85 mt-2 leading-relaxed dynamic-i18n" 
+                       data-my="ကလေးငယ်များ စိတ်ဓာတ် ကြံ့ခိုင်ရေးနှင့် သဘာဝ ချစ်မြတ်နိုးတတ်စေရန် ရေးသားထားသော ရောင်စုံ ပုံပြင် စာအုပ်။" 
+                       data-en="An illustrated fairy tale fostering warmth, empathy, and nature connection for young children.">
+                        ကလေးငယ်များ စိတ်ဓာတ် ကြံ့ခိုင်ရေးနှင့် သဘာဝ ချစ်မြတ်နိုးတတ်စေရန် ရေးသားထားသော ရောင်စုံ ပုံပြင် စာအုပ်။
+                    </p>
+                    <button onclick="openModal('ရွှေယုန်ကလေး ပုံပြင်စာအုပ်', 'Maria Zaw ရေးသား ရုပ်ပြပုံဖော်ထားသော ကလေးပုံပြင် စာအုပ် အညွှန်း။')" class="mt-4 dynamic-primary-text font-bold text-xs flex items-center hover:underline">
+                        <span class="dynamic-i18n" data-my="စာအုပ်အညွှန်း ဖတ်ရန်" data-en="Read Synopsis">စာအုပ်အညွှန်း ဖတ်ရန်</span> 
+                        <i class="fas fa-chevron-right ml-1.5 text-[10px]"></i>
+                    </button>
+                </div>
+
+                <div class="dynamic-card organic-border p-6 border shadow-sm hover:shadow-md transition">
+                    <div class="w-full h-52 bg-rose-100/70 rounded-2xl mb-4 flex items-center justify-center text-rose-900 text-5xl">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <span class="text-[11px] bg-rose-200 text-rose-900 px-3 py-1 organic-badge font-bold">Bedtime Stories</span>
+                    <h3 class="font-bold text-lg mt-3 font-serif dynamic-i18n" data-my="လမင်းကြီး၏ အိပ်မက်" data-en="The Moon's Dream">လမင်းကြီး၏ အိပ်မက်</h3>
+                    <p class="text-xs opacity-85 mt-2 leading-relaxed dynamic-i18n" 
+                       data-my="ညအိပ်ရာဝင် ပုံပြင်တိုများ စုစည်းမှု။ ကလေးငယ်များ စိတ်ကူးဉာဏ် ရင့်သန်စေမည့် ပုံပြင်များ။" 
+                       data-en="Gentle bedtime stories encouraging peaceful rest and imaginative dreaming.">
+                        ညအိပ်ရာဝင် ပုံပြင်တိုများ စုစည်းမှု။ ကလေးငယ်များ စိတ်ကူးဉာဏ် ရင့်သန်စေမည့် ပုံပြင်များ။
+                    </p>
+                    <button onclick="openModal('လမင်းကြီး၏ အိပ်မက် စာအုပ်', 'ညအိပ်ရာဝင်ချိန်များတွင် ဖတ်ရှုရန် သင့်တော်သော အနုပညာ ရုပ်ပြ ပုံပြင်များ။')" class="mt-4 dynamic-primary-text font-bold text-xs flex items-center hover:underline">
+                        <span class="dynamic-i18n" data-my="စာအုပ်အညွှန်း ဖတ်ရန်" data-en="Read Synopsis">စာအုပ်အညွှန်း ဖတ်ရန်</span> 
+                        <i class="fas fa-chevron-right ml-1.5 text-[10px]"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Yoga Mindfulness & Guitar Music Section -->
+    <section id="wellness" class="py-16 bg-white/60 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left: Yoga Philosophy -->
+                <div class="space-y-6">
+                    <span class="text-emerald-800 font-bold uppercase tracking-wider text-xs flex items-center">
+                        <i class="fas fa-spa mr-1.5"></i> 
+                        <span class="dynamic-i18n" data-my="Wellness & Mindful Movement" data-en="Wellness & Mindful Movement">Wellness & Mindful Movement</span>
+                    </span>
+                    <h2 class="text-3xl font-bold font-serif dynamic-i18n" data-my="Maria Zaw Yoga & Meditation" data-en="Maria Zaw Yoga & Meditation">Maria Zaw Yoga & Meditation</h2>
+                    <p class="text-sm opacity-85 leading-relaxed dynamic-i18n" 
+                       data-my="စိတ်နှင့် ခန္ဓာ မျှတငြိမ်းချမ်းစေရန် ယောဂ လေ့ကျင့်ခန်းများကို စနစ်တကျ သင်ကြားပေးပါသည်။ ကိုယ်ဟန် အနေအထား မှန်ကန်ရေး၊ အသက်ရှူ လေ့ကျင့်ခန်း (Pranayama) နှင့် စိတ်တည်ငြိမ်မှု သင်တန်းများ ပါဝင်ပါသည်။" 
+                       data-en="Nurturing body and soul through mindful Hatha yoga, pranayama breathwork, and guided meditation designed for all skill levels.">
+                        စိတ်နှင့် ခန္ဓာ မျှတငြိမ်းချမ်းစေရန် ယောဂ လေ့ကျင့်ခန်းများကို စနစ်တကျ သင်ကြားပေးပါသည်။ ကိုယ်ဟန် အနေအထား မှန်ကန်ရေး၊ အသက်ရှူ လေ့ကျင့်ခန်း (Pranayama) နှင့် စိတ်တည်ငြိမ်မှု သင်တန်းများ ပါဝင်ပါသည်။
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-2xl border bg-emerald-50/60">
+                            <h4 class="font-bold text-emerald-950 text-sm dynamic-i18n" data-my="Morning Mindful Yoga" data-en="Morning Mindful Yoga">Morning Mindful Yoga</h4>
+                            <p class="text-xs text-stone-600 mt-1"><i class="far fa-clock mr-1"></i> Mon - Fri (7:00 AM)</p>
+                        </div>
+                        <div class="p-4 rounded-2xl border bg-emerald-50/60">
+                            <h4 class="font-bold text-emerald-950 text-sm dynamic-i18n" data-my="Weekend Meditation" data-en="Weekend Meditation">Weekend Meditation</h4>
+                            <p class="text-xs text-stone-600 mt-1"><i class="far fa-clock mr-1"></i> Sat & Sun (5:00 PM)</p>
+                        </div>
+                    </div>
+
+                    <button onclick="openModal('Yoga Class Registration', 'Maria Zaw ၏ ယောဂ အတန်းများတွင် ပါဝင်ရန် ဆက်သွယ်နိုင်ပါသည်။')" class="px-6 py-3 bg-emerald-800 text-white font-bold text-xs organic-badge shadow hover:bg-emerald-900 transition">
+                        <span class="dynamic-i18n" data-my="ယောဂ အတန်း စုံစမ်းရန်" data-en="Inquire Yoga Class">ယောဂ အတန်း စုံစမ်းရန်</span>
+                    </button>
+                </div>
+
+                <!-- Right: Acoustic Guitar Performance Card -->
+                <div class="p-8 organic-border bg-stone-900 text-white shadow-2xl space-y-6 relative overflow-hidden">
+                    <div class="flex items-center justify-between">
+                        <span class="text-amber-400 font-bold uppercase tracking-wider text-xs flex items-center">
+                            <i class="fas fa-guitar mr-1.5"></i> 
+                            <span class="dynamic-i18n" data-my="Acoustic Guitar Sessions" data-en="Acoustic Guitar Sessions">Acoustic Guitar Sessions</span>
+                        </span>
+                        <span class="text-[10px] bg-rose-600 text-white px-2 py-0.5 rounded font-bold uppercase">Video</span>
+                    </div>
+
+                    <h2 class="text-2xl font-bold font-serif dynamic-i18n" data-my="Maria Zaw Acoustic Guitar Showcase" data-en="Maria Zaw Acoustic Guitar Showcase">Maria Zaw Acoustic Guitar Showcase</h2>
+                    <p class="text-stone-300 text-xs leading-relaxed dynamic-i18n" 
+                       data-my="ဂီတာသံစဉ်များဖြင့် စိတ်ဝိညာဉ်ကို အေးချမ်းစေခြင်း။ Maria Zaw ၏ Acoustic Guitar တီးခတ်မှု ဗီဒီယိုများနှင့် သီချင်းမှတ်တမ်းများ။" 
+                       data-en="Calming acoustic guitar melodies and fingerstyle covers recorded live in studio.">
+                        ဂီတာသံစဉ်များဖြင့် စိတ်ဝိညာဉ်ကို အေးချမ်းစေခြင်း။ Maria Zaw ၏ Acoustic Guitar တီးခတ်မှု ဗီဒီယိုများနှင့် သီချင်းမှတ်တမ်းများ။
+                    </p>
+
+                    <div class="relative rounded-2xl overflow-hidden aspect-video bg-black flex items-center justify-center group cursor-pointer border border-stone-800" onclick="openModal('Guitar Performance Video', 'Maria Zaw Acoustic Guitar Fingerstyle Cover Video Demonstration.')">
+                        <img src="https://placehold.co/800x450/2C3639/FFFFFF?text=Maria+Zaw+Guitar+Acoustic+Video" alt="Guitar Cover" class="w-full h-full object-cover opacity-75 group-hover:scale-105 transition duration-500">
+                        <div class="absolute w-16 h-16 rounded-full dynamic-primary-bg text-white flex items-center justify-center text-xl shadow-xl group-hover:scale-110 transition">
+                            <i class="fas fa-play ml-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Photo & Video Memories Journal -->
+    <section id="memories" class="py-16 bg-stone-100/50 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="dynamic-primary-text font-bold uppercase tracking-wider text-xs dynamic-i18n" data-my="Photo & Video Memories" data-en="Photo & Video Memories">Photo & Video Memories</span>
+                <h2 class="text-3xl font-bold mt-2 font-serif dynamic-i18n" data-my="Maria Zaw ၏ နေ့စဉ် Photo Journal" data-en="Maria Zaw Daily Memories Journal">Maria Zaw ၏ နေ့စဉ် Photo Journal</h2>
+                <p class="text-xs opacity-75 mt-1 dynamic-i18n" data-my="နေ့ရက်အလိုက်၊ အကြောင်းအရာအလိုက် သိမ်းဆည်းထားသော အမှတ်တရ ဓာတ်ပုံနှင့် ဗီဒီယိုများ" data-en="Archived daily moments, classes, art creations, and acoustic sessions.">နေ့ရက်အလိုက်၊ အကြောင်းအရာအလိုက် သိမ်းဆည်းထားသော အမှတ်တရ ဓာတ်ပုံနှင့် ဗီဒီယိုများ</p>
+                <div class="w-20 h-1 dynamic-primary-bg mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Filter Categories -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="filterMemories('all', this)" class="memory-filter-btn active px-4 py-2 organic-badge text-xs font-bold dynamic-primary-bg text-white shadow-sm">
+                    <span class="dynamic-i18n" data-my="အားလုံး" data-en="All Moments">အားလုံး</span>
+                </button>
+                <button onclick="filterMemories('teaching', this)" class="memory-filter-btn px-4 py-2 organic-badge text-xs font-bold bg-white text-stone-700 hover:bg-stone-50 border">
+                    <span class="dynamic-i18n" data-my="သင်ကြားရေး" data-en="Teaching">သင်ကြားရေး</span>
+                </button>
+                <button onclick="filterMemories('art', this)" class="memory-filter-btn px-4 py-2 organic-badge text-xs font-bold bg-white text-stone-700 hover:bg-stone-50 border">
+                    <span class="dynamic-i18n" data-my="အနုပညာ & ပန်းချီ" data-en="Art & Paintings">အနုပညာ & ပန်းချီ</span>
+                </button>
+                <button onclick="filterMemories('yoga', this)" class="memory-filter-btn px-4 py-2 organic-badge text-xs font-bold bg-white text-stone-700 hover:bg-stone-50 border">
+                    <span class="dynamic-i18n" data-my="ယောဂ / Wellness" data-en="Yoga & Wellness">ယောဂ / Wellness</span>
+                </button>
+            </div>
+
+            <!-- Photo Grid Journal -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="memory-card teaching dynamic-card organic-border overflow-hidden shadow-sm border hover:shadow-md transition">
+                    <img src="https://placehold.co/600x400/B85B43/FFFFFF?text=Burmese+Language+Session" alt="Memory" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs opacity-70 mb-2">
+                            <span><i class="far fa-calendar-alt mr-1"></i> 27 Oct 2026</span>
+                            <span class="bg-amber-100 text-amber-900 px-2.5 py-0.5 organic-badge font-bold dynamic-i18n" data-my="သင်ကြားရေး" data-en="Teaching">သင်ကြားရေး</span>
+                        </div>
+                        <h4 class="font-bold text-base font-serif dynamic-i18n" data-my="မြန်မာစာ အွန်လိုင်း သင်တန်း မှတ်တမ်း" data-en="Burmese Online Class Session">မြန်မာစာ အွန်လိုင်း သင်တန်း မှတ်တမ်း</h4>
+                        <p class="text-xs opacity-75 mt-2 dynamic-i18n" data-my="နိုင်ငံခြားသား သင်တန်းသားများနှင့် စာပေ သဒ္ဒါ လေ့ကျင့်ခန်းများ ဆွေးနွေးခဲ့သည့် အမှတ်တရ။" data-en="Interactive Burmese conversation practice with international students.">နိုင်ငံခြားသား သင်တန်းသားများနှင့် စာပေ သဒ္ဒါ လေ့ကျင့်ခန်းများ ဆွေးနွေးခဲ့သည့် အမှတ်တရ။</p>
+                    </div>
+                </div>
+
+                <div class="memory-card art dynamic-card organic-border overflow-hidden shadow-sm border hover:shadow-md transition">
+                    <img src="https://placehold.co/600x400/E29D47/FFFFFF?text=Maria+Zaw+Art+Studio" alt="Memory" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs opacity-70 mb-2">
+                            <span><i class="far fa-calendar-alt mr-1"></i> 22 Oct 2026</span>
+                            <span class="bg-rose-100 text-rose-900 px-2.5 py-0.5 organic-badge font-bold dynamic-i18n" data-my="အနုပညာ" data-en="Art">အနုပညာ</span>
+                        </div>
+                        <h4 class="font-bold text-base font-serif dynamic-i18n" data-my="ရေဆေး ပန်းချီကား သစ် ရေးဆွဲခြင်း" data-en="Watercolor Studio Session">ရေဆေး ပန်းချီကား သစ် ရေးဆွဲခြင်း</h4>
+                        <p class="text-xs opacity-75 mt-2 dynamic-i18n" data-my="ရေဆေး ပန်းချီကားသစ် လက်စသတ်ပြီးနောက် Studio တွင် ရိုက်ကူးထားသော မှတ်တမ်း။" data-en="Finishing up a original nature watercolor artwork in studio.">ရေဆေး ပန်းချီကားသစ် လက်စသတ်ပြီးနောက် Studio တွင် ရိုက်ကူးထားသော မှတ်တမ်း။</p>
+                    </div>
+                </div>
+
+                <div class="memory-card yoga dynamic-card organic-border overflow-hidden shadow-sm border hover:shadow-md transition">
+                    <img src="https://placehold.co/600x400/6E8B74/FFFFFF?text=Morning+Outdoor+Yoga" alt="Memory" class="w-full h-48 object-cover">
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs opacity-70 mb-2">
+                            <span><i class="far fa-calendar-alt mr-1"></i> 18 Oct 2026</span>
+                            <span class="bg-emerald-100 text-emerald-900 px-2.5 py-0.5 organic-badge font-bold dynamic-i18n" data-my="ယောဂ" data-en="Yoga">ယောဂ</span>
+                        </div>
+                        <h4 class="font-bold text-base font-serif dynamic-i18n" data-my="မနက်ခင်း ယောဂ အတန်း အမှတ်တရ" data-en="Morning Garden Yoga Class">မနက်ခင်း ယောဂ အတန်း အမှတ်တရ</h4>
+                        <p class="text-xs opacity-75 mt-2 dynamic-i18n" data-my="ဥယျာဉ်ထဲတွင် သင်တန်းသားများနှင့် အတူ ယောဂ အသက်ရှူ လေ့ကျင့်ခန်း ပြုလုပ်ခဲ့စဉ်။" data-en="Peaceful morning breathwork practice under open garden sky.">ဥယျာဉ်ထဲတွင် သင်တန်းသားများနှင့် အတူ ယောဂ အသက်ရှူ လေ့ကျင့်ခန်း ပြုလုပ်ခဲ့စဉ်။</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Social Links -->
+    <section id="contact" class="py-16 bg-white border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info & Social Icons -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="dynamic-primary-text font-bold uppercase tracking-wider text-xs dynamic-i18n" data-my="Get In Touch" data-en="Get In Touch">Get In Touch</span>
+                    <h2 class="text-3xl font-bold font-serif dynamic-i18n" data-my="Maria Zaw နှင့် ဆက်သွယ်ရန်" data-en="Connect with Maria Zaw">Maria Zaw နှင့် ဆက်သွယ်ရန်</h2>
+                    <p class="text-sm opacity-85 leading-relaxed dynamic-i18n" 
+                       data-my="မြန်မာစာ သင်တန်းများ၊ Thesis သုတေသန စာတမ်း၊ ပန်းချီကား ဝယ်ယူရန် သို့မဟုတ် ယောဂ အတန်းများအတွက် တိုက်ရိုက် မေးမြန်းနိုင်ပါသည်။" 
+                       data-en="Feel free to reach out for Burmese language tutoring, research thesis consultations, artwork commissions, or yoga sessions.">
+                        မြန်မာစာ သင်တန်းများ၊ Thesis သုတေသန စာတမ်း၊ ပန်းချီကား ဝယ်ယူရန် သို့မဟုတ် ယောဂ အတန်းများအတွက် တိုက်ရိုက် မေးမြန်းနိုင်ပါသည်။
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-center space-x-4 p-4 organic-border bg-stone-50 border">
+                            <div class="w-11 h-11 rounded-2xl dynamic-primary-bg text-white flex items-center justify-center shadow">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] opacity-65 font-bold uppercase dynamic-i18n" data-my="အီးမေးလ်" data-en="Email Address">အီးမေးလ်</p>
+                                <p class="font-bold text-sm">mariazaw.official@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-4 organic-border bg-stone-50 border">
+                            <div class="w-11 h-11 rounded-2xl dynamic-primary-bg text-white flex items-center justify-center shadow">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] opacity-65 font-bold uppercase dynamic-i18n" data-my="ဖုန်းနံပါတ်" data-en="Phone Number">ဖုန်းနံပါတ်</p>
+                                <p class="font-bold text-sm">+95 9 790 000 123</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="pt-4">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-stone-700 mb-3 dynamic-i18n" data-my="Maria Zaw Social Media Links" data-en="Maria Zaw Social Media Links">Maria Zaw Social Media Links</h4>
+                        <div class="flex space-x-3">
+                            <a href="https://facebook.com" target="_blank" class="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center hover:opacity-90 transition shadow">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" class="w-11 h-11 rounded-2xl bg-red-600 text-white flex items-center justify-center hover:opacity-90 transition shadow">
+                                <i class="fab fa-youtube text-lg"></i>
+                            </a>
+                            <a href="https://instagram.com" target="_blank" class="w-11 h-11 rounded-2xl bg-pink-600 text-white flex items-center justify-center hover:opacity-90 transition shadow">
+                                <i class="fab fa-instagram text-lg"></i>
+                            </a>
+                            <a href="https://telegram.org" target="_blank" class="w-11 h-11 rounded-2xl bg-sky-500 text-white flex items-center justify-center hover:opacity-90 transition shadow">
+                                <i class="fab fa-telegram-plane text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7 dynamic-card p-8 organic-border border shadow-sm">
+                    <h3 class="text-xl font-bold mb-6 font-serif dynamic-i18n" data-my="မက်ဆေ့ဂျ် ပေးပို့ရန်" data-en="Send a Message">မက်ဆေ့ဂျ် ပေးပို့ရန်</h3>
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold mb-1.5 dynamic-i18n" data-my="သင့်အမည် *" data-en="Your Name *">သင့်အမည် *</label>
+                                <input type="text" required placeholder="Name" class="w-full px-4 py-3 rounded-xl border focus:outline-none text-sm bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1.5 dynamic-i18n" data-my="အီးမေးလ် သို့မဟုတ် ဖုန်း *" data-en="Email or Phone *">အီးမေးလ် သို့မဟုတ် ဖုန်း *</label>
+                                <input type="text" required placeholder="Email or Phone" class="w-full px-4 py-3 rounded-xl border focus:outline-none text-sm bg-white">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1.5 dynamic-i18n" data-my="စိတ်ပါဝင်စားသည့် အကြောင်းအရာ" data-en="Topic of Interest">စိတ်ပါဝင်စားသည့် အကြောင်းအရာ</label>
+                            <select class="w-full px-4 py-3 rounded-xl border focus:outline-none text-sm bg-white">
+                                <option>မြန်မာစာ သင်ကြားရေး အတန်းများ (Burmese Language)</option>
+                                <option>Burmese Thesis & Research Papers</option>
+                                <option>Maria Zaw ပန်းချီကား ဝယ်ယူရန် (Paintings)</option>
+                                <option>ပုံပြင် စာအုပ်များ (Storybooks)</option>
+                                <option>ယောဂ / Meditation Classes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1.5 dynamic-i18n" data-my="မက်ဆေ့ဂျ် *" data-en="Your Message *">မက်ဆေ့ဂျ် *</label>
+                            <textarea rows="4" required placeholder="Write message here..." class="w-full px-4 py-3 rounded-xl border focus:outline-none text-sm bg-white"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3.5 dynamic-primary-bg text-white font-bold organic-badge hover:opacity-90 transition shadow-lg text-sm">
+                            <span class="dynamic-i18n" data-my="ပေးပို့မည်" data-en="Submit Message">ပေးပို့မည်</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-auto bg-stone-900 text-white py-8 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-base font-bold font-serif tracking-wide">Maria Zaw (မာရီယာဇော်)</p>
+            <p class="text-xs text-stone-400">© 2026 Maria Zaw Portfolio. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white organic-border max-w-lg w-full p-6 relative shadow-2xl border text-stone-900">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 text-stone-600 hover:text-stone-900 flex items-center justify-center">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 id="modal-title" class="text-xl font-bold mb-3 font-serif">Title</h3>
+            <div id="modal-content" class="text-sm leading-relaxed text-stone-600">
+                <p>Content</p>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal()" class="px-6 py-2.5 dynamic-primary-bg text-white text-xs font-bold organic-badge shadow">
+                    <span class="dynamic-i18n" data-my="ပိတ်မည်" data-en="Close">ပိတ်မည်</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let currentLang = 'my';
+
+        // Dynamic Bilingual Translator System
+        function setLanguage(lang) {
+            currentLang = lang;
+            const myBtn = document.getElementById('lang-btn-my');
+            const enBtn = document.getElementById('lang-btn-en');
+
+            if (lang === 'my') {
+                myBtn.className = "px-3 py-1 rounded-lg text-xs font-bold transition bg-amber-500 text-stone-950 shadow";
+                enBtn.className = "px-3 py-1 rounded-lg text-xs font-bold transition text-stone-300 hover:text-white";
+            } else {
+                enBtn.className = "px-3 py-1 rounded-lg text-xs font-bold transition bg-amber-500 text-stone-950 shadow";
+                myBtn.className = "px-3 py-1 rounded-lg text-xs font-bold transition text-stone-300 hover:text-white";
+            }
+
+            // Update all elements with dynamic-i18n class
+            const elements = document.querySelectorAll('.dynamic-i18n');
+            elements.forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if (text) {
+                    el.innerText = text;
+                }
+            });
+        }
+
+        // Creative Gallery Tab Switcher
+        function switchCreativeTab(tab) {
+            const artGallery = document.getElementById('art-gallery');
+            const booksGallery = document.getElementById('books-gallery');
+            const artBtn = document.getElementById('tab-art-btn');
+            const booksBtn = document.getElementById('tab-books-btn');
+
+            if (tab === 'art') {
+                artGallery.classList.remove('hidden');
+                booksGallery.classList.add('hidden');
+                artBtn.className = "px-6 py-2.5 organic-badge font-bold text-xs sm:text-sm transition bg-white shadow text-stone-900 flex items-center";
+                booksBtn.className = "px-6 py-2.5 organic-badge font-bold text-xs sm:text-sm transition text-stone-600 hover:text-stone-900 flex items-center";
+            } else {
+                artGallery.classList.add('hidden');
+                booksGallery.classList.remove('hidden');
+                booksBtn.className = "px-6 py-2.5 organic-badge font-bold text-xs sm:text-sm transition bg-white shadow text-stone-900 flex items-center";
+                artBtn.className = "px-6 py-2.5 organic-badge font-bold text-xs sm:text-sm transition text-stone-600 hover:text-stone-900 flex items-center";
+            }
+        }
+
+        // Photo Journal Category Filter
+        function filterMemories(category, btnElement) {
+            const cards = document.querySelectorAll('.memory-card');
+            const buttons = document.querySelectorAll('.memory-filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('dynamic-primary-bg', 'text-white');
+                btn.classList.add('bg-white', 'text-stone-700');
+            });
+
+            btnElement.classList.remove('bg-white', 'text-stone-700');
+            btnElement.classList.add('dynamic-primary-bg', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Controls
+        function openModal(title, bodyText) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-content').innerHTML = `<p>${bodyText}</p>`;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const msg = currentLang === 'my' 
+                ? "<p class='text-emerald-800 font-bold'>သင့်မက်ဆေ့ဂျ်ကို Maria Zaw ထံသို့ အောင်မြင်စွာ ပေးပို့ပြီးပါပြီ။ မကြာမီ ပြန်လည်ဆက်သွယ်ပါမည်။</p>"
+                : "<p class='text-emerald-800 font-bold'>Your message has been successfully sent to Maria Zaw. We will contact you soon!</p>";
+            openModal(currentLang === 'my' ? "ကျေးဇူးတင်ပါသည်" : "Thank You", msg);
+        }
+    </script>
+</body>
+</html>
